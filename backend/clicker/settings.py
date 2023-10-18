@@ -68,10 +68,16 @@ TEMPLATES = [
 WSGI_APPLICATION = 'clicker.wsgi.application'
 
 
-DATABASES = {
-    'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
-}
+# DATABASES = {
+#     'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+# }
 
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "mydatabase",
+    }
+}
 
 AUTH_PASSWORD_VALIDATORS = [
     {
