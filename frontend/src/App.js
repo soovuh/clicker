@@ -1,21 +1,15 @@
+import Navbar from './components/UI/Navbar';
+import Footer from './components/UI/Footer';
+import Home from './pages/Home';
+
+import styles from './styles/App.module.scss';
+
 function App() {
   return (
-    <div className="App">
-      <h1>hi</h1>
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
+    <div className={styles.container}>
+      <Navbar />
+      <Home />
+      <Footer />
     </div>
   );
 }
