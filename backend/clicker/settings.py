@@ -156,6 +156,9 @@ SIMPLE_JWT = {
 
 # DJOSER setup
 
+DOMAIN = 'localhost:3000'
+SITE_NAME = 'Clicker app'
+
 DJOSER = {
     'TOKEN_MODEL': 'rest_framework.authtoken.models.Token',
     'LOGIN_FIELD': 'email',
