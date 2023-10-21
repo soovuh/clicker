@@ -1,22 +1,29 @@
 import { useState } from 'react';
-import BigButton from '../components/home page/BigButton';
-import Counter from '../components/home page/Counter';
+import BigButton from './BigButton';
+import Counter from './Counter';
 
-import styles from '../styles/pages/Home.module.scss';
 import { Stack } from '@mui/material';
-import Display from '../components/UI/Display';
+import Display from '../../UI/Display';
 
-const Home = () => {
+const layout = {
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+};
+
+const HomePage = () => {
   const [counter, setCounter] = useState(0);
   return (
-    <div className={styles.container}>
+    <Stack sx={layout}>
       <Stack direction="column" spacing={2} alignItems="center">
         <Display value="Username" sx={{ color: 'white', variant: 'h5' }} />
         <Counter counter={counter} />
         <BigButton setCounter={setCounter} />
       </Stack>
-    </div>
+    </Stack>
   );
 };
 
-export default Home;
+export default HomePage;

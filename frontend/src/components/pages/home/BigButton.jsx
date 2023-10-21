@@ -1,4 +1,4 @@
-import styles from '../../styles/components/home page/BigButton.module.scss';
+import styles from '../../../styles/components/pages/home/BigButton.module.scss';
 
 const BigButton = ({ setCounter }) => {
   const handleClick = () => {

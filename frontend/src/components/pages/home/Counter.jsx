@@ -1,4 +1,4 @@
-import Display from '../UI/Display';
+import Display from '../../UI/Display';
 import { Stack } from '@mui/material';
 
 const Counter = ({ counter }) => {
