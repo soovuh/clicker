@@ -7,7 +7,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import HomePage from './components/pages/home/HomePage';
 import LeadersPage from './components/pages/leaders/LeadersPage';
 import ProfilePage from './components/pages/profile/ProfilePage';
-import LoginPage from './components/pages/login/LoginPage';
+import LoginPage from './components/pages/auth/LoginPage';
 import ErrorPage from './components/pages/ErrorPage';
 
 import { fetchUsers } from './functions/loaders/fetchUsers';

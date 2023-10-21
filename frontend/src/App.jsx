@@ -17,7 +17,6 @@ function App() {
     <Stack sx={layout}>
       <Navbar />
       {state === 'loading' ? <Loading type="bars" /> : <Outlet />}
-
       <Footer />
     </Stack>
   );
