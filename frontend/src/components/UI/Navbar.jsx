@@ -17,8 +17,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AdsClickIcon from '@mui/icons-material/AdsClick';
 import RouterLink from './RouterLink';
 
-const Navbar = () => {
-  const pages = ['Home', 'Leaders', 'Profile'];
+const Navbar = ({ isAuthorized }) => {
+  const pages = isAuthorized
+    ? ['Home', 'Leaders', 'Profile']
+    : ['Home', 'Leaders'];
   const settings = ['Profile', 'Logout'];
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -38,17 +40,26 @@ const Navbar = () => {
     setAnchorElUser(null);
   };
 
-  //FIXME: <Toolbar /> overwriting his min-height prop in @media into CSS
   return (
-    <AppBar
-      position="static"
-      // sx={{ height: 'fit-content' }}
-    >
+    <AppBar position="static">
       <Container
-        maxWidth="xl"
-        // sx={{ height: '50px' }}
+        sx={{
+          minWidth: {
+            xs: '100%',
+          },
+          width: '100%',
+        }}
+        //  maxWidth="xl"
       >
-        <Toolbar disableGutters>
+        <Toolbar
+          disableGutters
+          sx={{
+            minHeight: {
+              xs: '50px',
+            },
+            height: '50px',
+          }}
+        >
           <RouterLink
             to="/"
             sx={{
@@ -112,6 +123,7 @@ const Navbar = () => {
               onClose={handleCloseNavMenu}
               sx={{
                 display: { xs: 'block', md: 'none' },
+                mt: '2px',
               }}
             >
               {pages.map(page => (
@@ -176,45 +188,62 @@ const Navbar = () => {
                     my: 2,
                     color: 'white',
                     display: 'block',
+                    textTransform: 'none',
                   }}
                 >
-                  {page}
+                  <Typography variant="h6">{page}</Typography>
                 </Button>
               </RouterLink>
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map(setting => (
-                <RouterLink to={`/${setting.toLocaleLowerCase()}`}>
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                </RouterLink>
-              ))}
-            </Menu>
-          </Box>
+          {isAuthorized ? (
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="User Name" src="/static/images/avatar/2.jpg" />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: '35px' }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map(setting => (
+                  <RouterLink to={`/${setting.toLocaleLowerCase()}`}>
+                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                      <Typography textAlign="center">{setting}</Typography>
+                    </MenuItem>
+                  </RouterLink>
+                ))}
+              </Menu>
+            </Box>
+          ) : (
+            <RouterLink to={'/login'}>
+              <Button
+                onClick={handleCloseNavMenu}
+                sx={{
+                  my: 2,
+                  color: 'white',
+                  display: 'block',
+                  textTransform: 'none',
+                }}
+              >
+                <Typography variant="h6">Login</Typography>
+              </Button>
+            </RouterLink>
+          )}
         </Toolbar>
       </Container>
     </AppBar>
