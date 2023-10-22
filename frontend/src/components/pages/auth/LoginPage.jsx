@@ -1,5 +1,5 @@
 import { Stack } from '@mui/material';
-import LoginForm from './LoginForm';
+import Login from './Login';
 
 const layout = {
   height: '100%',
@@ -12,7 +12,7 @@ const layout = {
 const LoginPage = () => {
   return (
     <Stack sx={layout}>
-      <LoginForm />
+      <Login />
     </Stack>
   );
 };
