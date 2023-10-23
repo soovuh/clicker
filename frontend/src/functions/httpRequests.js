@@ -56,38 +56,32 @@ export const refreshAccessToken = async accessToken => {
   return await response.json();
 };
 
-export const resetPasswordMail = async () => {
+export const resetPasswordMail = async email => {
   const response = await fetch(`${HOST}/api/auth/users/reset_password/`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: {
-      email: 'user.email@example.com',
-    },
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email }),
   });
 
-  return response.json();
+  return await response.json();
 };
 
-export const resetPasswordConfirm = async () => {
+export const resetPasswordConfirm = async ({
+  uid,
+  token,
+  new_password,
+  re_new_password,
+}) => {
   const response = await fetch(
     `${HOST}/api/auth/users/reset_password_confirm/`,
     {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: {
-        uid: 'Mg',
-        token: 'reset_password_token',
-        new_password: 'password',
-        re_new_password: 'password',
-      },
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ uid, token, new_password, re_new_password }),
     }
   );
 
-  return response.json();
+  return await response.json();
 };
 
 export const getUser = async () => {
