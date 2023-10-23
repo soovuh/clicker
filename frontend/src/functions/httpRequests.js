@@ -13,9 +13,7 @@ export const createUser = async ({ email, name, password, re_password }) => {
 export const activateAccount = async (uid, token) => {
   const response = await fetch(`${HOST}/api/auth/users/activation/`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ uid, token }),
   });
 
