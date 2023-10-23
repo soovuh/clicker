@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Paper, Stack, Typography, TextField, Button } from '@mui/material';
-import { getAccessToken } from '../../../functions/httpRequests';
+import { loginUser } from '../../../functions/httpRequests';
 
 const Login = () => {
   const [user, setUser] = useState({ email: '', password: '' });
@@ -15,7 +15,7 @@ const Login = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const tokens = await getAccessToken(user);
+    const tokens = await loginUser(user);
     console.log('tokens', tokens);
     setUser({ email: '', password: '' });
   };
