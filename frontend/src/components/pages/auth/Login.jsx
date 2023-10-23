@@ -1,24 +1,23 @@
 import { useState } from 'react';
-
 import { Paper, Stack, Typography, TextField, Button } from '@mui/material';
+import { getAccessToken } from '../../../functions/httpRequests';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [user, setUser] = useState({ email: '', password: '' });
 
   const handleEmailChange = e => {
-    setEmail(e.target.value);
+    setUser(prevState => ({ ...prevState, email: e.target.value }));
   };
 
   const handlePasswordChange = e => {
-    setPassword(e.target.value);
+    setUser(prevState => ({ ...prevState, password: e.target.value }));
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    console.log({ email, password });
-    setEmail('');
-    setPassword('');
+    const tokens = await getAccessToken(user);
+    console.log('tokens', tokens);
+    setUser({ email: '', password: '' });
   };
 
   return (
@@ -48,7 +47,7 @@ const Login = () => {
           id="email-input"
           label="Email"
           type="email"
-          value={email}
+          value={user.email}
           onChange={handleEmailChange}
           placeholder="your.email@example.com"
         />
@@ -57,7 +56,7 @@ const Login = () => {
           id="password-input"
           label="Password"
           type="password"
-          value={password}
+          value={user.password}
           onChange={handlePasswordChange}
         />
         <Button

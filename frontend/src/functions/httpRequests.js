@@ -33,19 +33,19 @@ export const activateAccount = async () => {
   return response.json();
 };
 
-export const getAccessToken = async () => {
+export const getAccessToken = async user => {
   const response = await fetch(`${HOST}/api/auth/jwt/create/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: {
-      email: 'user.email@example.com',
-      password: 'password',
-    },
+    body: JSON.stringify({
+      email: user.email,
+      password: user.password,
+    }),
   });
 
-  return response.json();
+  return await response.json();
 };
 
 export const checkAuth = async () => {
