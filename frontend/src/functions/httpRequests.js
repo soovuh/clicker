@@ -84,15 +84,15 @@ export const resetPasswordConfirm = async ({
   return await response.json();
 };
 
-export const getUser = async () => {
+export const getUser = async accessToken => {
   const response = await fetch(`${HOST}/api/auth/users/me/`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: 'JWT access_token',
+      Authorization: `JWT ${accessToken}`,
       Accept: 'application/json',
     },
   });
 
-  return response.json();
+  return await response.json();
 };
