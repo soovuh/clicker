@@ -1,21 +1,17 @@
 const HOST = 'http://127.0.0.1:8000';
 
-export const createUser = async () => {
+export const createUser = async user => {
+  const { email, name, password, re_password } = user;
   const response = await fetch(`${HOST}/api/auth/users/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
     },
-    body: {
-      email: 'user.email@example.com',
-      name: 'User Name',
-      password: 'password',
-      re_password: 'password',
-    },
+    body: JSON.stringify({ email, name, password, re_password }),
   });
 
-  return response.json();
+  return await response.json();
 };
 
 export const activateAccount = async () => {
