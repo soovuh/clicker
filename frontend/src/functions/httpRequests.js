@@ -26,16 +26,11 @@ export const activateAccount = async (uid, token) => {
   return await response.json();
 };
 
-export const getAccessToken = async user => {
+export const loginUser = async ({ email, password }) => {
   const response = await fetch(`${HOST}/api/auth/jwt/create/`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      email: user.email,
-      password: user.password,
-    }),
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password }),
   });
 
   return await response.json();
