@@ -46,18 +46,14 @@ export const checkAuth = async accessToken => {
   return await response.json();
 };
 
-export const refreshAccessToken = async () => {
+export const refreshAccessToken = async accessToken => {
   const response = await fetch(`${HOST}/api/auth/jwt/refresh/`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: {
-      token: 'access_token',
-    },
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ token: accessToken }),
   });
 
-  return response.json();
+  return await response.json();
 };
 
 export const resetPasswordMail = async () => {
