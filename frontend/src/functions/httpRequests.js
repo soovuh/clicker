@@ -1,13 +1,9 @@
 const HOST = 'http://127.0.0.1:8000';
 
-export const createUser = async user => {
-  const { email, name, password, re_password } = user;
+export const createUser = async ({ email, name, password, re_password }) => {
   const response = await fetch(`${HOST}/api/auth/users/`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-    },
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
     body: JSON.stringify({ email, name, password, re_password }),
   });
 
