@@ -1,9 +1,14 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Paper, Stack, Typography, TextField, Button } from '@mui/material';
 import { loginUser } from '../../../functions/httpRequests';
 
+import { useLocalStorageAuth } from '../../../hooks/useLocalStorageAuth';
+
 const Login = () => {
   const [user, setUser] = useState({ email: '', password: '' });
+  const navigate = useNavigate();
+  const { setAccessToken, setRefreshToken } = useLocalStorageAuth();
 
   const handleEmailChange = e => {
     setUser(prevState => ({ ...prevState, email: e.target.value }));
@@ -16,8 +21,18 @@ const Login = () => {
   const handleSubmit = async e => {
     e.preventDefault();
     const tokens = await loginUser(user);
-    console.log('tokens', tokens);
-    setUser({ email: '', password: '' });
+
+    if (tokens.access && tokens.refresh) {
+      setAccessToken(tokens.access);
+      setRefreshToken(tokens.refresh);
+      //TODO: Find any better solution than setTimeout()
+      setTimeout(() => {
+        setUser({ email: '', password: '' });
+        navigate('/');
+      }, 0);
+    } else {
+      alert(tokens.detail);
+    }
   };
 
   return (
