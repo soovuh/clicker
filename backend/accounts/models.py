@@ -3,12 +3,14 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 
 from accounts.managers import UserAccountManager
 
+
 class UserAccount(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     clicks = models.BigIntegerField(default=0)
+    image = models.ImageField(upload_to='avatars', blank=True)
 
     objects = UserAccountManager()
 
