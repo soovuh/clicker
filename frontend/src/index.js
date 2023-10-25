@@ -11,6 +11,7 @@ import LoginPage from './components/pages/auth/LoginPage';
 import ErrorPage from './components/pages/ErrorPage';
 
 import { fetchUsers } from './functions/loaders/fetchUsers';
+import SignupPage from './components/pages/auth/SignupPage';
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: '/login',
         element: <LoginPage />,
+      },
+      {
+        path: '/signup',
+        element: <SignupPage />,
       },
     ],
   },
