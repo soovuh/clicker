@@ -1,6 +1,5 @@
 import pytest
 
-from django.urls import reverse
 from django.contrib.auth.tokens import default_token_generator
 from rest_framework import status
 from djoser import utils
@@ -126,5 +125,3 @@ def test_load_user(api_client):
     }
     response = api_client.get(url, headers=headers)
     assert response.status_code == status.HTTP_200_OK
-
-
