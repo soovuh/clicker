@@ -180,9 +180,9 @@ const Navbar = ({ isAuthorized }) => {
             {pages.map(page => (
               <RouterLink
                 to={`/${page === 'Home' ? '' : page.toLocaleLowerCase()}`}
+                key={page}
               >
                 <Button
-                  key={page}
                   onClick={handleCloseNavMenu}
                   sx={{
                     my: 2,
@@ -221,8 +221,11 @@ const Navbar = ({ isAuthorized }) => {
                 onClose={handleCloseUserMenu}
               >
                 {settings.map(setting => (
-                  <RouterLink to={`/${setting.toLocaleLowerCase()}`}>
-                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <RouterLink
+                    to={`/${setting.toLocaleLowerCase()}`}
+                    key={setting}
+                  >
+                    <MenuItem onClick={handleCloseUserMenu}>
                       <Typography textAlign="center">{setting}</Typography>
                     </MenuItem>
                   </RouterLink>
