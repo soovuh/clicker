@@ -125,3 +125,53 @@ def test_load_user(api_client):
     }
     response = api_client.get(url, headers=headers)
     assert response.status_code == status.HTTP_200_OK
+
+
+# UserModelViewSet tests
+@pytest.mark.django_db
+def test_load_user_extended(api_client):
+    user = create_and_activate_user(api_client)
+    token = login_user(api_client, "testpassword123").data["access"]
+    url = f'/api/info/users/{user.id}/'
+    response = api_client.get(url)
+    assert response.status_code == status.HTTP_200_OK
+    assert response.data["id"] == user.id
+    assert response.data["email"] == user.email
+    assert response.data["name"] == user.name
+    assert response.data["clicks"] == user.clicks
+
+
+@pytest.mark.django_db
+def test_user_list(api_client):
+    url = f'/api/info/users/'
+    response = api_client.get(url)
+    assert response.status_code == status.HTTP_200_OK
+
+
+@pytest.mark.django_db
+def test_change_user_clicks(api_client):
+    user = create_and_activate_user(api_client)
+    token = login_user(api_client, "testpassword123").data["access"]
+    url = f'/api/info/users/{user.id}/'
+    headers = {
+        "Authorization": f'JWT {token}'
+    }
+    response = api_client.patch(url, {"clicks": 100}, headers=headers)
+    assert response.status_code == status.HTTP_200_OK
+    assert response.data["clicks"] != user.clicks
+    assert response.data["clicks"] == 100
+
+
+@pytest.mark.django_db
+def test_change_user_name(api_client):
+    user = create_and_activate_user(api_client)
+    token = login_user(api_client, "testpassword123").data["access"]
+    url = f'/api/info/users/{user.id}/'
+    headers = {
+        "Authorization": f'JWT {token}'
+    }
+    response = api_client.patch(url, {"name": "newtestname"}, headers=headers)
+    assert response.status_code == status.HTTP_200_OK
+    assert response.data["name"] != user.name
+    assert response.data["name"] == "newtestname"
+
