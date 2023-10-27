@@ -151,7 +151,6 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-SOCIAL_AUTH_ALLOWED_REDIRECT_URIS = ['http://127.0.0.1:8000', 'http://localhost:8000', 'http://localhost:3000', 'http://127.0.0.1:3000']
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
@@ -200,7 +199,8 @@ DJOSER = {
         'user': 'accounts.serializers.CustomUserCreateSerializer',
         'current_user': 'accounts.serializers.UserCreateSerializer',
         'user_delete': 'djoser.serializers.UserDeleteSerializer',
-    }
+    },
+    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS' : ['http://127.0.0.1:8000', 'http://localhost:8000', 'http://localhost:3000', 'http://127.0.0.1:3000']
 }
 
 # Email configuration
