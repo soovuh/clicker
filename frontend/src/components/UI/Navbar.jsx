@@ -16,8 +16,10 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import AdsClickIcon from '@mui/icons-material/AdsClick';
 import RouterLink from './RouterLink';
+import { useAuth } from '../../context/AuthContext';
 
-const Navbar = ({ isAuthorized }) => {
+const Navbar = () => {
+  const { isAuthorized, removeTokens } = useAuth();
   const pages = isAuthorized
     ? ['Home', 'Leaders', 'Profile']
     : ['Home', 'Leaders'];
@@ -220,16 +222,22 @@ const Navbar = ({ isAuthorized }) => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {settings.map(setting => (
-                  <RouterLink
-                    to={`/${setting.toLocaleLowerCase()}`}
-                    key={setting}
-                  >
-                    <MenuItem onClick={handleCloseUserMenu}>
+                {settings.map(setting =>
+                  setting.toLocaleLowerCase() === 'logout' ? (
+                    <MenuItem key={setting} onClick={removeTokens}>
                       <Typography textAlign="center">{setting}</Typography>
                     </MenuItem>
-                  </RouterLink>
-                ))}
+                  ) : (
+                    <RouterLink
+                      to={`/${setting.toLocaleLowerCase()}`}
+                      key={setting}
+                    >
+                      <MenuItem onClick={handleCloseUserMenu}>
+                        <Typography textAlign="center">{setting}</Typography>
+                      </MenuItem>
+                    </RouterLink>
+                  )
+                )}
               </Menu>
             </Box>
           ) : (

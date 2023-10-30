@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Outlet, useNavigation } from 'react-router-dom';
 import { Stack } from '@mui/material';
 import Navbar from './components/UI/Navbar';
@@ -14,11 +13,9 @@ const layout = {
 
 function App() {
   const { state } = useNavigation();
-  const [isAuthorized, setIsAuthorized] = useState(true);
-
   return (
     <Stack sx={layout}>
-      <Navbar isAuthorized={isAuthorized} setIsAuthorized={setIsAuthorized} />
+      <Navbar />
       {state === 'loading' ? <Loading type="bars" /> : <Outlet />}
       <Footer />
     </Stack>
