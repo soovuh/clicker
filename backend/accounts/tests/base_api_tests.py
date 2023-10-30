@@ -15,7 +15,7 @@ def api_client():
 def create_user(api_client):
     user_create_data = {
         'email': 'test@example.com',
-        'name': 'Test User',
+        'username': 'Test User',
         'password': 'testpassword123',
         're_password': 'testpassword123',
     }
@@ -137,7 +137,7 @@ def test_load_user_extended(api_client):
     assert response.status_code == status.HTTP_200_OK
     assert response.data["id"] == user.id
     assert response.data["email"] == user.email
-    assert response.data["name"] == user.name
+    assert response.data["username"] == user.username
     assert response.data["clicks"] == user.clicks
 
 
@@ -170,8 +170,8 @@ def test_change_user_name(api_client):
     headers = {
         "Authorization": f'JWT {token}'
     }
-    response = api_client.patch(url, {"name": "newtestname"}, headers=headers)
+    response = api_client.patch(url, {"username": "newtestname"}, headers=headers)
     assert response.status_code == status.HTTP_200_OK
-    assert response.data["name"] != user.name
-    assert response.data["name"] == "newtestname"
+    assert response.data["username"] != user.username
+    assert response.data["username"] == "newtestname"
 
