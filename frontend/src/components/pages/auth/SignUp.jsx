@@ -6,7 +6,7 @@ import { createUser } from '../../../functions/httpRequests';
 const SignUp = () => {
   const [user, setUser] = useState({
     email: '',
-    name: '',
+    username: '',
     password: '',
     repeatPassword: '',
   });
@@ -16,7 +16,7 @@ const SignUp = () => {
   const isRequestSuccess = response => {
     if (
       Array.isArray(response.email) ||
-      Array.isArray(response.name) ||
+      Array.isArray(response.username) ||
       Array.isArray(response.password) ||
       Array.isArray(response.non_field_errors)
     ) {
@@ -28,8 +28,8 @@ const SignUp = () => {
   const handleEmailChange = e => {
     setUser(prevState => ({ ...prevState, email: e.target.value }));
   };
-  const handleNameChange = e => {
-    setUser(prevState => ({ ...prevState, name: e.target.value }));
+  const handleUsernameChange = e => {
+    setUser(prevState => ({ ...prevState, username: e.target.value }));
   };
 
   const handlePasswordChange = e => {
@@ -41,12 +41,12 @@ const SignUp = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const { email, name, password, repeatPassword: re_password } = user;
-    const res = await createUser({ email, name, password, re_password });
+    const { email, username, password, repeatPassword: re_password } = user;
+    const res = await createUser({ email, username, password, re_password });
     setResponse(res);
 
     if (isRequestSuccess(res)) {
-      setUser({ email: '', name: '', password: '', repeatPassword: '' });
+      setUser({ email: '', username: '', password: '', repeatPassword: '' });
       navigate('/');
     }
   };
@@ -85,11 +85,11 @@ const SignUp = () => {
         />
         <TextField
           required
-          id="name-input"
+          id="username-input"
           label="Name"
           type="text"
-          value={user.name}
-          onChange={handleNameChange}
+          value={user.username}
+          onChange={handleUsernameChange}
           placeholder="Your Name"
         />
         <TextField

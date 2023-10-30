@@ -1,10 +1,15 @@
 const HOST = 'http://127.0.0.1:8000';
 
-export const createUser = async ({ email, name, password, re_password }) => {
+export const createUser = async ({
+  email,
+  username,
+  password,
+  re_password,
+}) => {
   const response = await fetch(`${HOST}/api/auth/users/`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-    body: JSON.stringify({ email, name, password, re_password }),
+    body: JSON.stringify({ email, username, password, re_password }),
   });
 
   return await response.json();
@@ -86,6 +91,50 @@ export const getUser = async accessToken => {
       Authorization: `JWT ${accessToken}`,
       Accept: 'application/json',
     },
+  });
+
+  return await response.json();
+};
+
+export const getUserExtended = async id => {
+  const response = await fetch(`${HOST}/api/info/users/${id}/`, {
+    method: 'GET',
+  });
+
+  return await response.json();
+};
+
+export const getUsersList = async () => {
+  const response = await fetch(`${HOST}/api/info/users/`, {
+    method: 'GET',
+  });
+
+  return await response.json();
+};
+
+export const setUserClicks = async (id, clicks, accessToken) => {
+  const response = await fetch(`${HOST}/api/info/users/${id}/`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `JWT ${accessToken}`,
+      Accept: 'application/json',
+    },
+    body: JSON.stringify({ clicks }),
+  });
+
+  return await response.json();
+};
+
+export const setUserName = async (id, username, accessToken) => {
+  const response = await fetch(`${HOST}/api/info/users/${id}/`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `JWT ${accessToken}`,
+      Accept: 'application/json',
+    },
+    body: JSON.stringify({ username }),
   });
 
   return await response.json();
