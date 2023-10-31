@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Paper, Stack, Typography, TextField, Button } from '@mui/material';
 import { createUser } from '../../../functions/httpRequests';
+import Divider from '../../UI/Divider';
+import GoogleAuthButton from '../../UI/GoogleAuthButton';
+import GitHubAuthButton from '../../UI/GitHubAuthButton';
 
 const SignUp = () => {
   const [user, setUser] = useState({
@@ -61,7 +64,7 @@ const SignUp = () => {
     >
       <Stack
         component="form"
-        spacing={2}
+        spacing={1}
         alignItems="center"
         onSubmit={handleSubmit}
         sx={{
@@ -117,14 +120,17 @@ const SignUp = () => {
         <Button
           variant="contained"
           type="submit"
-          // disabled
           sx={{
-            width: '150px',
+            width: '200px',
             borderRadius: '2rem',
+            textTransform: 'none',
           }}
         >
-          Sign in
+          Sign up
         </Button>
+        <Divider />
+        <GoogleAuthButton />
+        <GitHubAuthButton />
       </Stack>
     </Paper>
   );
