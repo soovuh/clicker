@@ -1,7 +1,7 @@
 import { Button } from '@mui/material';
 import GoogleIcon from '@mui/icons-material/Google';
 
-const GoogleAuthButton = () => {
+const GoogleAuthButton = ({ children }) => {
   return (
     <Button
       variant="outlined"
@@ -15,7 +15,7 @@ const GoogleAuthButton = () => {
       }}
       startIcon={<GoogleIcon />}
     >
-      Login with Google
+      {children}
     </Button>
   );
 };

@@ -129,8 +129,8 @@ const SignUp = () => {
           Sign up
         </Button>
         <Divider />
-        <GoogleAuthButton />
-        <GitHubAuthButton />
+        <GoogleAuthButton>Sign up with Google</GoogleAuthButton>
+        <GitHubAuthButton>Sign up with GitHub</GitHubAuthButton>
       </Stack>
     </Paper>
   );

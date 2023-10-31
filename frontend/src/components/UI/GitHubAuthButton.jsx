@@ -1,7 +1,7 @@
 import { Button } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 
-const GitHubAuthButton = () => {
+const GitHubAuthButton = ({ children }) => {
   return (
     <Button
       variant="outlined"
@@ -15,7 +15,7 @@ const GitHubAuthButton = () => {
       }}
       startIcon={<GitHubIcon />}
     >
-      Login with GitHub
+      {children}
     </Button>
   );
 };

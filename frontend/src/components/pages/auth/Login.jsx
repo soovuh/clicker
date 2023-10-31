@@ -114,8 +114,8 @@ const Login = () => {
           Login
         </Button>
         <Divider />
-        <GoogleAuthButton />
-        <GitHubAuthButton />
+        <GoogleAuthButton>Login with Google</GoogleAuthButton>
+        <GitHubAuthButton>Login with GitHub</GitHubAuthButton>
       </Stack>
     </Paper>
   );
