@@ -1,4 +1,5 @@
 import { createContext, useState, useContext, useEffect } from 'react';
+import { checkAuth, refreshAccessToken } from '../functions/httpRequests';
 
 const AuthContext = createContext();
 
@@ -29,10 +30,26 @@ const AuthProvider = ({ children }) => {
     }
   }, [refreshToken]);
 
+  const setAuth = async accessToken => {
+    const authResponse = await checkAuth(accessToken);
+
+    if (authResponse.detail) {
+      const refreshResponse = await refreshAccessToken(refreshToken);
+
+      if (refreshResponse.detail) {
+        throw new Error(refreshResponse.detail);
+      }
+
+      setAccessToken(refreshResponse.access);
+    } else {
+      setIsAuthorized(true);
+    }
+  };
+
   const setTokens = (newAccessToken, newRefreshToken) => {
     setAccessToken(newAccessToken);
     setRefreshToken(newRefreshToken);
-    setIsAuthorized(true);
+    setAuth(newAccessToken);
   };
 
   const removeTokens = () => {
