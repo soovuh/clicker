@@ -13,6 +13,7 @@ import ErrorPage from './components/pages/ErrorPage';
 
 import { fetchUsers } from './functions/loaders/fetchUsers';
 import SignupPage from './components/pages/auth/SignupPage';
+import WithAuth from './components/hocs/WithAuth';
 
 const router = createBrowserRouter([
   {
@@ -31,7 +32,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/profile',
-        element: <ProfilePage />,
+        element: (
+          <WithAuth>
+            <ProfilePage />
+          </WithAuth>
+        ),
       },
       {
         path: '/login',
