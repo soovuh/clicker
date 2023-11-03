@@ -23,6 +23,7 @@ const HomePage = () => {
   const [counter, setCounter] = useState(0);
 
   useEffect(() => {
+    if (!accessToken) return;
     const fetchUser = async () => {
       const response = await getUser(accessToken);
 

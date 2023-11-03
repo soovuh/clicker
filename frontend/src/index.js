@@ -14,6 +14,8 @@ import ErrorPage from './components/pages/ErrorPage';
 import { fetchUsers } from './functions/loaders/fetchUsers';
 import SignupPage from './components/pages/auth/SignupPage';
 import WithAuth from './components/hocs/WithAuth';
+import Loading from './components/UI/Loading';
+import GoogleAuth from './components/pages/auth/google/GoogleAuth';
 
 const router = createBrowserRouter([
   {
@@ -45,6 +47,10 @@ const router = createBrowserRouter([
       {
         path: '/signup',
         element: <SignupPage />,
+      },
+      {
+        path: '/auth/google',
+        element: <GoogleAuth />,
       },
     ],
   },
