@@ -20,7 +20,7 @@ const GoogleAuth = () => {
 
     console.log('state', query.get('state'));
     console.log('code', query.get('code'));
-  }, []);
+  }, [code, state, query]);
 
   return <Loading type="bars" />;
 };

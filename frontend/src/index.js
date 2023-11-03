@@ -11,10 +11,8 @@ import ProfilePage from './components/pages/profile/ProfilePage';
 import LoginPage from './components/pages/auth/LoginPage';
 import ErrorPage from './components/pages/ErrorPage';
 
-import { fetchUsers } from './functions/loaders/fetchUsers';
 import SignupPage from './components/pages/auth/SignupPage';
 import WithAuth from './components/hocs/WithAuth';
-import Loading from './components/UI/Loading';
 import GoogleAuth from './components/pages/auth/google/GoogleAuth';
 
 const router = createBrowserRouter([
@@ -30,7 +28,6 @@ const router = createBrowserRouter([
       {
         path: '/leaders',
         element: <LeadersPage />,
-        loader: fetchUsers,
       },
       {
         path: '/profile',
@@ -58,11 +55,11 @@ const router = createBrowserRouter([
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  // <React.StrictMode>
-  <AuthProvider>
-    <RouterProvider router={router} />
-  </AuthProvider>
-  // </React.StrictMode>
+  <React.StrictMode>
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
