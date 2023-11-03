@@ -26,7 +26,6 @@ const INITIAL_USER = {
 const HomePage = () => {
   const { accessToken } = useAuth();
   const [user, setUser] = useState(INITIAL_USER);
-  // const [counter, setCounter] = useState(0);
 
   useEffect(() => {
     if (!accessToken) return;
