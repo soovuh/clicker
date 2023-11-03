@@ -1,11 +1,11 @@
 import Display from '../../UI/Display';
 import { Stack } from '@mui/material';
 
-const Counter = ({ counter }) => {
+const Counter = ({ clicks }) => {
   return (
     <Stack>
       <Display
-        value={counter}
+        value={clicks}
         sx={{
           fontFamily: 'DS-Digital',
           color: 'white',

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import BigButton from './BigButton';
 import Counter from './Counter';
 import { useAuth } from '../../../context/AuthContext';
-import { getUser } from '../../../functions/httpRequests';
+import { getUser, getUserExtended } from '../../../functions/httpRequests';
 
 import { Stack } from '@mui/material';
 import Display from '../../UI/Display';
@@ -15,12 +15,18 @@ const layout = {
   alignItems: 'center',
 };
 
-const INITIAL_USER = { email: '', username: 'Unknown', id: '' };
+const INITIAL_USER = {
+  id: '',
+  email: '',
+  username: 'Unknown',
+  image: null,
+  clicks: 0,
+};
 
 const HomePage = () => {
   const { accessToken } = useAuth();
   const [user, setUser] = useState(INITIAL_USER);
-  const [counter, setCounter] = useState(0);
+  // const [counter, setCounter] = useState(0);
 
   useEffect(() => {
     if (!accessToken) return;
@@ -31,8 +37,9 @@ const HomePage = () => {
         return;
       }
 
-      console.log('response', response);
-      setUser(response);
+      const user = await getUserExtended(response.id);
+      console.log('user', user);
+      setUser(user);
     };
     fetchUser();
   }, [accessToken]);
@@ -41,8 +48,8 @@ const HomePage = () => {
     <Stack sx={layout}>
       <Stack direction="column" spacing={2} alignItems="center">
         <Display value={user.username} sx={{ color: 'white', variant: 'h5' }} />
-        <Counter counter={counter} />
-        <BigButton setCounter={setCounter} />
+        <Counter clicks={user.clicks} />
+        <BigButton updateClicks={setUser} />
       </Stack>
     </Stack>
   );

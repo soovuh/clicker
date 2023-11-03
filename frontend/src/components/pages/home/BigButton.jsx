@@ -1,8 +1,8 @@
 import styles from '../../../styles/components/pages/home/BigButton.module.scss';
 
-const BigButton = ({ setCounter }) => {
+const BigButton = ({ updateClicks }) => {
   const handleClick = () => {
-    setCounter(prevState => ++prevState);
+    updateClicks(prevState => ({ ...prevState, clicks: ++prevState.clicks }));
   };
 
   return (
