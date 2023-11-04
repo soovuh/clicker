@@ -1,13 +1,20 @@
 import { Button } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import { getGitHubAuthURL } from '../../functions/httpRequests';
 
 const GitHubAuthButton = ({ children }) => {
+  const handleClick = async () => {
+    const response = await getGitHubAuthURL();
+
+    if (response.authorization_url) {
+      window.location.href = response.authorization_url;
+    }
+  };
+
   return (
     <Button
       variant="outlined"
-      onClick={() => {
-        alert('Redirect to GitHub Auth');
-      }}
+      onClick={handleClick}
       sx={{
         width: '200px',
         borderRadius: '2rem',

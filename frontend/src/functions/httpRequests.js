@@ -5,7 +5,8 @@ const HOST = 'http://127.0.0.1:8000';
 // const REDIRECT_URI = 'http://127.0.0.1:3000/auth/google';
 
 // const REDIRECT_URI = 'http://localhost:3000';
-const REDIRECT_URI = 'http://localhost:3000/auth/google';
+const REDIRECT_URI_GOOGLE = 'http://localhost:3000/auth/google';
+const REDIRECT_URI_GITHUB = 'http://localhost:3000/auth/github';
 
 export const createUser = async ({
   email,
@@ -24,7 +25,7 @@ export const createUser = async ({
 
 export const getGoogleAuthURL = async () => {
   const response = await fetch(
-    `${HOST}/api/auth/o/google-oauth2/?redirect_uri=${REDIRECT_URI}`
+    `${HOST}/api/auth/o/google-oauth2/?redirect_uri=${REDIRECT_URI_GOOGLE}`
   );
 
   return await response.json();
@@ -33,6 +34,26 @@ export const getGoogleAuthURL = async () => {
 export const createUserGoogle = async (state, code) => {
   const response = await fetch(
     `${HOST}/api/auth/o/google-oauth2/?state=${state}&code=${code}`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    }
+  );
+
+  return await response.json();
+};
+
+export const getGitHubAuthURL = async () => {
+  const response = await fetch(
+    `${HOST}/api/auth/o/github/?redirect_uri=${REDIRECT_URI_GITHUB}`
+  );
+
+  return await response.json();
+};
+
+export const createUserGitHub = async (state, code) => {
+  const response = await fetch(
+    `${HOST}/api/auth/o/github/?state=${state}&code=${code}`,
     {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },

@@ -14,6 +14,7 @@ import ErrorPage from './components/pages/ErrorPage';
 import SignupPage from './components/pages/auth/SignupPage';
 import WithAuth from './components/hocs/WithAuth';
 import GoogleAuth from './components/pages/auth/google/GoogleAuth';
+import GitHubAuth from './components/pages/auth/github/GitHubAuth';
 
 const router = createBrowserRouter([
   {
@@ -49,17 +50,21 @@ const router = createBrowserRouter([
         path: '/auth/google',
         element: <GoogleAuth />,
       },
+      {
+        path: '/auth/github',
+        element: <GitHubAuth />,
+      },
     ],
   },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <AuthProvider>
+    <RouterProvider router={router} />
+  </AuthProvider>
+  // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
