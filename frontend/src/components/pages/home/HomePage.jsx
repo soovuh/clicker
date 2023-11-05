@@ -26,9 +26,16 @@ const INITIAL_USER = {
 const HomePage = () => {
   const { accessToken } = useAuth();
   const [user, setUser] = useState(INITIAL_USER);
+  const logout = () => {
+    setUser(INITIAL_USER);
+  };
 
   useEffect(() => {
-    if (!accessToken) return;
+    if (!accessToken) {
+      logout();
+      return;
+    }
+
     const fetchUser = async () => {
       const response = await getUser(accessToken);
 

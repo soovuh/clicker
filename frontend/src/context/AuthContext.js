@@ -33,17 +33,21 @@ const AuthProvider = ({ children }) => {
   const setAuth = async accessToken => {
     const authResponse = await checkAuth(accessToken);
 
-    if (authResponse.detail) {
-      const refreshResponse = await refreshAccessToken(refreshToken);
+    const accessTokenValid = !authResponse.detail;
 
-      if (refreshResponse.detail) {
-        throw new Error(refreshResponse.detail);
-      }
-
-      setAccessToken(refreshResponse.access);
-    } else {
+    if (accessTokenValid) {
       setIsAuthorized(true);
+      return;
     }
+
+    const refreshResponse = await refreshAccessToken(refreshToken);
+    const refreshTokenNotValid = !!refreshResponse.detail;
+
+    if (refreshTokenNotValid) {
+      throw new Error(refreshResponse.detail);
+    }
+
+    setAccessToken(refreshResponse.access);
   };
 
   const setTokens = (newAccessToken, newRefreshToken) => {
