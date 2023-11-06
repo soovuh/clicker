@@ -208,7 +208,17 @@ DJOSER = {
         'current_user': 'accounts.serializers.UserCreateSerializer',
         'user_delete': 'djoser.serializers.UserDeleteSerializer',
     },
-    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS' : ['http://127.0.0.1:8000', 'http://localhost:8000', 'http://localhost:3000', 'http://127.0.0.1:3000', 'http://localhost:3000/auth/google', 'http://localhost:3000/auth/github']
+    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS' : 
+    [
+    'http://127.0.0.1:8000', 
+    'http://localhost:8000', 
+    'http://localhost:3000', 
+    'http://127.0.0.1:3000', 
+    'http://localhost:3000/auth/google', 
+    'http://localhost:3000/auth/github',
+    'http://localhost:8000/auth/google', 
+    'http://localhost:8000/auth/github',
+    ]
 }
 
 # Email configuration
