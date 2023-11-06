@@ -31,23 +31,27 @@ const AuthProvider = ({ children }) => {
   }, [refreshToken]);
 
   const setAuth = async accessToken => {
-    const authResponse = await checkAuth(accessToken);
+    try {
+      const authResponse = await checkAuth(accessToken);
 
-    const accessTokenValid = !authResponse.detail;
+      if (authResponse.ok) {
+        setIsAuthorized(true);
+        return;
+      }
 
-    if (accessTokenValid) {
-      setIsAuthorized(true);
-      return;
+      const refreshResponse = await refreshAccessToken(refreshToken);
+      const refreshData = await refreshResponse.json();
+      const { access } = refreshData;
+
+      if (!refreshResponse.ok) {
+        alert('Whoops! Something went wrong...');
+        throw new Error(refreshData.detail);
+      }
+
+      setAccessToken(access);
+    } catch (error) {
+      console.error(error);
     }
-
-    const refreshResponse = await refreshAccessToken(refreshToken);
-    const refreshTokenNotValid = !!refreshResponse.detail;
-
-    if (refreshTokenNotValid) {
-      throw new Error(refreshResponse.detail);
-    }
-
-    setAccessToken(refreshResponse.access);
   };
 
   const setTokens = (newAccessToken, newRefreshToken) => {

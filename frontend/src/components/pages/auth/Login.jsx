@@ -28,8 +28,8 @@ const CustomTypography = ({ children }) => {
 
 const Login = () => {
   const [user, setUser] = useState({ email: '', password: '' });
-  const navigate = useNavigate();
   const { setTokens } = useAuth();
+  const navigate = useNavigate();
 
   const handleEmailChange = e => {
     setUser(prevState => ({ ...prevState, email: e.target.value }));
@@ -41,18 +41,22 @@ const Login = () => {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const tokens = await loginUser(user);
+    try {
+      const response = await loginUser(user);
+      const data = await response.json();
+      const { access, refresh } = data;
 
-    if (tokens.access && tokens.refresh) {
-      setTokens(tokens.access, tokens.refresh);
+      if (!response.ok) {
+        alert(data.detail);
+        const { status, statusText } = response;
+        throw new Error(`${status} ${statusText}`);
+      }
 
-      //TODO: Find any better solution than setTimeout()
-      setTimeout(() => {
-        setUser({ email: '', password: '' });
-        navigate('/');
-      }, 0);
-    } else {
-      alert(tokens.detail);
+      setTokens(access, refresh);
+      setUser({ email: '', password: '' });
+      navigate('/');
+    } catch (error) {
+      console.error(error);
     }
   };
 

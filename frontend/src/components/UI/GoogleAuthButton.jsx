@@ -3,11 +3,24 @@ import GoogleIcon from '@mui/icons-material/Google';
 import { getGoogleAuthURL } from '../../functions/httpRequests';
 
 const GoogleAuthButton = ({ children }) => {
-  const handleClick = async () => {
-    const response = await getGoogleAuthURL();
+  const redirectUser = url => {
+    window.location.href = url;
+  };
 
-    if (response.authorization_url) {
-      window.location.href = response.authorization_url;
+  const handleClick = async () => {
+    try {
+      const response = await getGoogleAuthURL();
+      const data = await response.json();
+      const { authorization_url: authURL } = data;
+
+      if (!response.ok) {
+        const { status, statusText } = response;
+        throw new Error(`${status} ${statusText}`);
+      }
+
+      redirectUser(authURL);
+    } catch (error) {
+      console.error(error);
     }
   };
 

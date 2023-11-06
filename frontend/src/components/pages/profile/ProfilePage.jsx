@@ -18,17 +18,22 @@ const ProfilePage = () => {
   const { id, email, username, image, clicks } = user;
 
   useEffect(() => {
-    if (!accessToken) return;
     const fetchUser = async () => {
-      const response = await getUser(accessToken);
+      try {
+        const response = await getUser(accessToken);
+        const data = await response.json();
+        const { id } = data;
 
-      if (response.code) {
-        return;
+        if (!response.ok) {
+          return;
+        }
+
+        const extendedResponse = await getUserExtended(id);
+        const extendedData = await extendedResponse.json();
+        setUser(extendedData);
+      } catch (error) {
+        console.error(error);
       }
-
-      const user = await getUserExtended(response.id);
-      console.log('user', user);
-      setUser(user);
     };
     fetchUser();
   }, [accessToken]);

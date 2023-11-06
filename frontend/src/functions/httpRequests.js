@@ -20,7 +20,7 @@ export const createUser = async ({
     body: JSON.stringify({ email, username, password, re_password }),
   });
 
-  return await response.json();
+  return response;
 };
 
 export const getGoogleAuthURL = async () => {
@@ -28,7 +28,7 @@ export const getGoogleAuthURL = async () => {
     `${HOST}/api/auth/o/google-oauth2/?redirect_uri=${REDIRECT_URI_GOOGLE}`
   );
 
-  return await response.json();
+  return response;
 };
 
 export const createUserGoogle = async (state, code) => {
@@ -40,7 +40,7 @@ export const createUserGoogle = async (state, code) => {
     }
   );
 
-  return await response.json();
+  return response;
 };
 
 export const getGitHubAuthURL = async () => {
@@ -48,7 +48,7 @@ export const getGitHubAuthURL = async () => {
     `${HOST}/api/auth/o/github/?redirect_uri=${REDIRECT_URI_GITHUB}`
   );
 
-  return await response.json();
+  return response;
 };
 
 export const createUserGitHub = async (state, code) => {
@@ -60,7 +60,7 @@ export const createUserGitHub = async (state, code) => {
     }
   );
 
-  return await response.json();
+  return response;
 };
 
 export const activateAccount = async (uid, token) => {
@@ -80,7 +80,7 @@ export const loginUser = async ({ email, password }) => {
     body: JSON.stringify({ email, password }),
   });
 
-  return await response.json();
+  return response;
 };
 
 export const checkAuth = async accessToken => {
@@ -90,7 +90,7 @@ export const checkAuth = async accessToken => {
     body: JSON.stringify({ token: accessToken }),
   });
 
-  return await response.json();
+  return response;
 };
 
 export const refreshAccessToken = async accessToken => {
@@ -100,7 +100,7 @@ export const refreshAccessToken = async accessToken => {
     body: JSON.stringify({ token: accessToken }),
   });
 
-  return await response.json();
+  return response;
 };
 
 export const resetPasswordMail = async email => {
@@ -110,7 +110,7 @@ export const resetPasswordMail = async email => {
     body: JSON.stringify({ email }),
   });
 
-  return await response.json();
+  return response;
 };
 
 export const resetPasswordConfirm = async ({
@@ -128,7 +128,7 @@ export const resetPasswordConfirm = async ({
     }
   );
 
-  return await response.json();
+  return response;
 };
 
 export const getUser = async accessToken => {
@@ -141,7 +141,7 @@ export const getUser = async accessToken => {
     },
   });
 
-  return await response.json();
+  return response;
 };
 
 export const getUserExtended = async id => {
@@ -149,7 +149,7 @@ export const getUserExtended = async id => {
     method: 'GET',
   });
 
-  return await response.json();
+  return response;
 };
 
 export const getUsersList = async () => {
@@ -157,7 +157,7 @@ export const getUsersList = async () => {
     method: 'GET',
   });
 
-  return await response.json();
+  return response;
 };
 
 export const setUserClicks = async (id, clicks, accessToken) => {
@@ -171,7 +171,7 @@ export const setUserClicks = async (id, clicks, accessToken) => {
     body: JSON.stringify({ clicks }),
   });
 
-  return await response.json();
+  return response;
 };
 
 export const setUserName = async (id, username, accessToken) => {
@@ -185,5 +185,5 @@ export const setUserName = async (id, username, accessToken) => {
     body: JSON.stringify({ username }),
   });
 
-  return await response.json();
+  return response;
 };

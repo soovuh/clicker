@@ -8,8 +8,20 @@ const LeadersPage = () => {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      const users = await getUsersList();
-      setUsers(users);
+      try {
+        const response = await getUsersList();
+        const data = await response.json();
+
+        if (!response.ok) {
+          alert('Whoops! Something went wrong...');
+          const { status, statusText } = response;
+          throw new Error(`${status} ${statusText}`);
+        }
+
+        setUsers(data);
+      } catch (error) {
+        console.error(error);
+      }
     };
     fetchUsers();
   }, []);

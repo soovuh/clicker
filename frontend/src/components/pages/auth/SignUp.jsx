@@ -16,18 +16,6 @@ const SignUp = () => {
   const [response, setResponse] = useState('');
   const navigate = useNavigate();
 
-  const isRequestSuccess = response => {
-    if (
-      Array.isArray(response.email) ||
-      Array.isArray(response.username) ||
-      Array.isArray(response.password) ||
-      Array.isArray(response.non_field_errors)
-    ) {
-      return false;
-    }
-    return true;
-  };
-
   const handleEmailChange = e => {
     setUser(prevState => ({ ...prevState, email: e.target.value }));
   };
@@ -45,15 +33,24 @@ const SignUp = () => {
   const handleSubmit = async e => {
     e.preventDefault();
     const { email, username, password, repeatPassword: re_password } = user;
-    const res = await createUser({ email, username, password, re_password });
-    setResponse(res);
 
-    if (isRequestSuccess(res)) {
+    try {
+      const res = await createUser({ email, username, password, re_password });
+      const data = await res.json();
+      setResponse(data);
+
+      if (!res.ok) {
+        const { status, statusText } = res;
+        throw new Error(`${status} ${statusText}`);
+      }
+
       setUser({ email: '', username: '', password: '', repeatPassword: '' });
       alert(
         'We sent you a letter with a activation link to your email. Please check your inbox.'
       );
       navigate('/login');
+    } catch (error) {
+      console.error(error);
     }
   };
 
