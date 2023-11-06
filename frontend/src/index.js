@@ -15,6 +15,7 @@ import SignupPage from './components/pages/auth/SignupPage';
 import WithAuth from './components/hocs/WithAuth';
 import GoogleAuth from './components/pages/auth/google/GoogleAuth';
 import GitHubAuth from './components/pages/auth/github/GitHubAuth';
+import ActivationPage from './components/pages/auth/ActivationPage';
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: '/auth/github',
         element: <GitHubAuth />,
+      },
+      {
+        path: '/activate/:uid/:activationToken',
+        element: <ActivationPage />,
       },
     ],
   },

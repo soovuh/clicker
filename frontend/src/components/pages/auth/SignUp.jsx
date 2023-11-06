@@ -50,7 +50,10 @@ const SignUp = () => {
 
     if (isRequestSuccess(res)) {
       setUser({ email: '', username: '', password: '', repeatPassword: '' });
-      navigate('/');
+      alert(
+        'We sent you a letter with a activation link to your email. Please check your inbox.'
+      );
+      navigate('/login');
     }
   };
 

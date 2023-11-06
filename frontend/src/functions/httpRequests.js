@@ -70,7 +70,7 @@ export const activateAccount = async (uid, token) => {
     body: JSON.stringify({ uid, token }),
   });
 
-  return await response.json();
+  return response;
 };
 
 export const loginUser = async ({ email, password }) => {
