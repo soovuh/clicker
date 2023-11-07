@@ -74,6 +74,7 @@ const Login = () => {
         alignItems="center"
         onSubmit={handleSubmit}
         sx={{
+          width: '320px',
           padding: '1rem',
         }}
         autoComplete="off"
@@ -83,6 +84,7 @@ const Login = () => {
         </Typography>
         <TextField
           required
+          fullWidth
           id="email-input"
           label="Email"
           type="email"
@@ -92,6 +94,7 @@ const Login = () => {
         />
         <TextField
           required
+          fullWidth
           id="password-input"
           label="Password"
           type="password"
@@ -100,7 +103,7 @@ const Login = () => {
         />
         <Breadcrumbs>
           <RouterLink to="/signup">
-            <CustomTypography>Sign up</CustomTypography>
+            <CustomTypography>Create account</CustomTypography>
           </RouterLink>
           <RouterLink to="/reset-password">
             <CustomTypography>Reset password</CustomTypography>
@@ -110,16 +113,20 @@ const Login = () => {
           variant="contained"
           type="submit"
           sx={{
-            width: '200px',
+            width: '320px',
             borderRadius: '2rem',
             textTransform: 'none',
           }}
         >
-          Login
+          <Typography variant="h6">Login</Typography>
         </Button>
         <Divider />
-        <GoogleAuthButton>Login with Google</GoogleAuthButton>
-        <GitHubAuthButton>Login with GitHub</GitHubAuthButton>
+        <GoogleAuthButton>
+          <Typography variant="h6">Login with Google</Typography>
+        </GoogleAuthButton>
+        <GitHubAuthButton>
+          <Typography variant="h6">Login with GitHub</Typography>
+        </GitHubAuthButton>
       </Stack>
     </Paper>
   );

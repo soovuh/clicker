@@ -4,7 +4,7 @@ import Counter from './Counter';
 import { useAuth } from '../../../context/AuthContext';
 import { getUser, getUserExtended } from '../../../functions/httpRequests';
 
-import { Stack } from '@mui/material';
+import { Paper, Stack } from '@mui/material';
 import Display from '../../UI/Display';
 
 const layout = {
@@ -16,9 +16,9 @@ const layout = {
 };
 
 const INITIAL_USER = {
-  id: '',
-  email: '',
-  username: 'Unknown',
+  id: null,
+  email: null,
+  username: 'Guest User',
   image: null,
   clicks: 0,
 };
@@ -58,11 +58,32 @@ const HomePage = () => {
 
   return (
     <Stack sx={layout}>
-      <Stack direction="column" spacing={2} alignItems="center">
-        <Display value={user.username} sx={{ color: 'white', variant: 'h5' }} />
+      <Paper
+        elevation={4}
+        sx={{
+          borderRadius: '1rem',
+          overflow: 'hidden',
+          padding: '1rem',
+          gap: '1rem',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Display
+          value={user.username}
+          sx={{
+            color: 'white',
+            variant: 'h5',
+            fontSize: '30px',
+            padding: '4px 8px',
+            minWidth: '220px',
+          }}
+        />
         <Counter clicks={user.clicks} />
-        <BigButton updateClicks={setUser} />
-      </Stack>
+        <BigButton onClick={setUser}>Push me</BigButton>
+      </Paper>
     </Stack>
   );
 };

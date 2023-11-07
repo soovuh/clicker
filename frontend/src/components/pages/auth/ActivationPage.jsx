@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { Stack, Button, Typography } from '@mui/material';
+import { Stack, Typography, Paper } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import { activateAccount } from '../../../functions/httpRequests';
 import Loading from '../../UI/Loading';
+import BigButton from '../home/BigButton';
 
 const layout = {
   height: '100%',
@@ -43,39 +44,40 @@ const ActivationPage = () => {
 
   return (
     <Stack sx={layout}>
-      <Stack direction="column" spacing={2} alignItems="center">
+      <Paper
+        elevation={4}
+        sx={{
+          borderRadius: '1rem',
+          overflow: 'hidden',
+          padding: '1rem',
+          gap: '1rem',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
         {isActivated ? (
           <>
-            <Typography variant="h5">
-              Account activated. Please Login
-            </Typography>
-            <Button
-              sx={{ textTransform: 'none' }}
-              variant="contained"
-              onClick={handleRedirect}
-            >
+            <Typography variant="h5">Successfully activated.</Typography>
+            <Typography variant="h5">Please Login</Typography>
+            <BigButton onClick={handleRedirect}>
               <Typography variant="h6">Go to Login page</Typography>
-            </Button>
+            </BigButton>
           </>
         ) : (
           <>
-            <Typography variant="h5">
-              Please confirm account activation
-            </Typography>
+            <Typography variant="h5">Confirm account activation</Typography>
             {isLoading ? (
               <Loading type="bars" />
             ) : (
-              <Button
-                sx={{ textTransform: 'none' }}
-                variant="contained"
-                onClick={handleActivation}
-              >
+              <BigButton onClick={handleActivation}>
                 <Typography variant="h6">Activate</Typography>
-              </Button>
+              </BigButton>
             )}
           </>
         )}
-      </Stack>
+      </Paper>
     </Stack>
   );
 };

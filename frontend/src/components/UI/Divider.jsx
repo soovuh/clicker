@@ -5,14 +5,14 @@ const Divider = () => {
     <Stack
       gap={1}
       direction="row"
-      width="200px"
+      width="320px"
       alignItems="center"
       justifyContent="center"
     >
       <Stack
         sx={{
           height: '1px',
-          width: '75px',
+          width: '120px',
           borderRadius: '12px',
           backgroundColor: 'grey',
         }}
@@ -21,7 +21,7 @@ const Divider = () => {
       <Stack
         sx={{
           height: '1px',
-          width: '75px',
+          width: '120px',
           borderRadius: '12px',
           backgroundColor: 'grey',
         }}

@@ -1,8 +1,8 @@
 import styles from '../../../styles/components/pages/home/BigButton.module.scss';
 
-const BigButton = ({ updateClicks }) => {
+const BigButton = ({ children, onClick }) => {
   const handleClick = () => {
-    updateClicks(prevState => ({ ...prevState, clicks: ++prevState.clicks }));
+    onClick(prevState => ({ ...prevState, clicks: ++prevState.clicks }));
   };
 
   return (
@@ -10,7 +10,7 @@ const BigButton = ({ updateClicks }) => {
       <button className={styles.pushable} onClick={handleClick}>
         <span className={styles.shadow}></span>
         <span className={styles.edge}></span>
-        <span className={styles.front}>Push me</span>
+        <span className={styles.front}>{children}</span>
       </button>
     </span>
   );

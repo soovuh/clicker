@@ -46,7 +46,7 @@ const styles = {
 };
 
 const Display = ({ value, sx }) => {
-  const { fontFamily, color, variant } = sx;
+  const { fontFamily, color, variant, fontSize, padding, minWidth } = sx;
   return (
     <Box sx={styles.base}>
       <Box sx={styles.display}>
@@ -57,6 +57,9 @@ const Display = ({ value, sx }) => {
             fontFamily={fontFamily}
             color={color}
             variant={variant}
+            fontSize={fontSize}
+            padding={padding}
+            minWidth={minWidth}
             textAlign="center"
           >
             {value}

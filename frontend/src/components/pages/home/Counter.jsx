@@ -10,6 +10,7 @@ const Counter = ({ clicks }) => {
           fontFamily: 'DS-Digital',
           color: 'white',
           variant: 'h3',
+          minWidth: '80px',
         }}
       />
     </Stack>

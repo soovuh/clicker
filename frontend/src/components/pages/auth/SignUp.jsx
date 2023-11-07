@@ -64,11 +64,13 @@ const SignUp = () => {
     >
       <Stack
         component="form"
-        spacing={1}
+        spacing={1.5}
         alignItems="center"
+        justifyContent="center"
         onSubmit={handleSubmit}
         sx={{
           padding: '1rem',
+          width: '320px',
         }}
         autoComplete="off"
       >
@@ -77,6 +79,7 @@ const SignUp = () => {
         </Typography>
         <TextField
           required
+          fullWidth
           id="email-input"
           label="Email"
           type="email"
@@ -88,6 +91,7 @@ const SignUp = () => {
         />
         <TextField
           required
+          fullWidth
           id="username-input"
           label="Name"
           type="text"
@@ -97,6 +101,7 @@ const SignUp = () => {
         />
         <TextField
           required
+          fullWidth
           id="password-input"
           label="Password"
           type="password"
@@ -107,6 +112,7 @@ const SignUp = () => {
         />
         <TextField
           required
+          fullWidth
           id="repeat-password-input"
           label="Repeat password"
           type="password"
@@ -121,16 +127,21 @@ const SignUp = () => {
           variant="contained"
           type="submit"
           sx={{
-            width: '200px',
+            width: '320px',
+            lineHeight: '2rem',
             borderRadius: '2rem',
             textTransform: 'none',
           }}
         >
-          Sign up
+          <Typography variant="h6">Sign up</Typography>
         </Button>
         <Divider />
-        <GoogleAuthButton>Sign up with Google</GoogleAuthButton>
-        <GitHubAuthButton>Sign up with GitHub</GitHubAuthButton>
+        <GoogleAuthButton>
+          <Typography variant="h6">Sign up with Google</Typography>
+        </GoogleAuthButton>
+        <GitHubAuthButton>
+          <Typography variant="h6">Sign up with GitHub</Typography>
+        </GitHubAuthButton>
       </Stack>
     </Paper>
   );

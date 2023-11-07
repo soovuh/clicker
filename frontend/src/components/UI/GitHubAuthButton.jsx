@@ -29,7 +29,7 @@ const GitHubAuthButton = ({ children }) => {
       variant="outlined"
       onClick={handleClick}
       sx={{
-        width: '200px',
+        width: '320px',
         borderRadius: '2rem',
         textTransform: 'none',
       }}
