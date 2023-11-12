@@ -105,7 +105,7 @@ const Login = () => {
           <RouterLink to="/signup">
             <CustomTypography>Create account</CustomTypography>
           </RouterLink>
-          <RouterLink to="/reset-password">
+          <RouterLink to="/password/reset">
             <CustomTypography>Reset password</CustomTypography>
           </RouterLink>
         </Breadcrumbs>

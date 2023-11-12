@@ -16,6 +16,8 @@ import WithAuth from './components/hocs/WithAuth';
 import GoogleAuth from './components/pages/auth/google/GoogleAuth';
 import GitHubAuth from './components/pages/auth/github/GitHubAuth';
 import ActivationPage from './components/pages/auth/ActivationPage';
+import ResetPasswordPage from './components/pages/auth/ResetPasswordPage';
+import ConfirmPasswordPage from './components/pages/auth/ConfirmPasswordPage';
 
 const router = createBrowserRouter([
   {
@@ -58,6 +60,14 @@ const router = createBrowserRouter([
       {
         path: '/activate/:uid/:activationToken',
         element: <ActivationPage />,
+      },
+      {
+        path: '/password/reset',
+        element: <ResetPasswordPage />,
+      },
+      {
+        path: '/password/reset/confirm/:uid/:resetPasswordToken',
+        element: <ConfirmPasswordPage />,
       },
     ],
   },
