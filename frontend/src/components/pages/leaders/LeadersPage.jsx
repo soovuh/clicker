@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Stack, Typography } from '@mui/material';
+import { Stack } from '@mui/material';
 import { getUsersList } from '../../../functions/httpRequests';
 import Loading from '../../UI/Loading';
+import UsersList from './UsersList';
+import { sortByClicks } from '../../../functions/usersList';
 
 const LeadersPage = () => {
   const [users, setUsers] = useState([]);
@@ -18,7 +20,8 @@ const LeadersPage = () => {
           throw new Error(`${status} ${statusText}`);
         }
 
-        setUsers(data);
+        const sortedByClicks = sortByClicks(data);
+        setUsers(sortedByClicks);
       } catch (error) {
         console.error(error);
       }
@@ -35,19 +38,7 @@ const LeadersPage = () => {
         height: '100%',
       }}
     >
-      <Typography>That's a Leaders Page.</Typography>
-      {users.length ? (
-        <>
-          {users.map(({ id, username, clicks }) => (
-            <Stack key={id} direction="row" gap={2}>
-              <Typography>{username}</Typography>
-              <Typography>{clicks}</Typography>
-            </Stack>
-          ))}
-        </>
-      ) : (
-        <Loading type="bars" />
-      )}
+      {users.length ? <UsersList users={users} /> : <Loading type="bars" />}
     </Stack>
   );
 };
