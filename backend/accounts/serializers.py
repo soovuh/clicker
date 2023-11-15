@@ -7,7 +7,7 @@ from accounts.models import UserAccount as User
 class CustomUserCreateSerializer(UserCreateSerializer):
     class Meta(UserCreateSerializer.Meta):
         model = User
-        fields = ('id', 'email', 'username', 'password', 'image')
+        fields = ('id', 'email', 'username', 'password', 'image', 'clicks')
 
 
 class UserModelSerializer(serializers.ModelSerializer):

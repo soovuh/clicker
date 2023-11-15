@@ -205,7 +205,7 @@ DJOSER = {
     'SERIALIZERS': {
         'user_create': 'accounts.serializers.CustomUserCreateSerializer',
         'user': 'accounts.serializers.CustomUserCreateSerializer',
-        'current_user': 'accounts.serializers.UserCreateSerializer',
+        'current_user': 'accounts.serializers.CustomUserCreateSerializer',
         'user_delete': 'djoser.serializers.UserDeleteSerializer',
     },
     'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS' : 
