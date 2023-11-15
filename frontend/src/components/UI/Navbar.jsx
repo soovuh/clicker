@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { getUser, getUserExtended } from '../../functions/httpRequests';
 
 import {
   AppBar,
@@ -26,6 +27,31 @@ const Navbar = () => {
   const settings = ['Profile', 'Logout'];
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const { accessToken } = useAuth();
+  const [user, setUser] = useState({ username: null, image: null });
+  const { username, image } = user;
+
+  useEffect(() => {
+    if (!accessToken) return;
+    const fetchUser = async () => {
+      try {
+        const response = await getUser(accessToken);
+        const data = await response.json();
+        const { id } = data;
+
+        if (!response.ok) {
+          return;
+        }
+
+        const extendedResponse = await getUserExtended(id);
+        const extendedData = await extendedResponse.json();
+        setUser(extendedData);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchUser();
+  }, [accessToken]);
 
   const handleOpenNavMenu = event => {
     setAnchorElNav(event.currentTarget);
@@ -44,23 +70,10 @@ const Navbar = () => {
 
   return (
     <AppBar position="static">
-      <Container
-        sx={{
-          minWidth: {
-            xs: '100%',
-          },
-          width: '100%',
-        }}
-        //  maxWidth="xl"
-      >
+      <Container sx={{ minWidth: { xs: '100%' }, width: '100%' }}>
         <Toolbar
           disableGutters
-          sx={{
-            minHeight: {
-              xs: '50px',
-            },
-            height: '50px',
-          }}
+          sx={{ minHeight: { xs: '50px' }, height: '50px' }}
         >
           <RouterLink
             to="/"
@@ -70,12 +83,7 @@ const Navbar = () => {
               alignItems: 'center',
             }}
           >
-            <AdsClickIcon
-              sx={{
-                display: { xs: 'none', md: 'flex' },
-                mr: 1,
-              }}
-            />
+            <AdsClickIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
             <Typography
               variant="h6"
               noWrap
@@ -93,12 +101,7 @@ const Navbar = () => {
             </Typography>
           </RouterLink>
 
-          <Box
-            sx={{
-              flexGrow: 1,
-              display: { xs: 'flex', md: 'none' },
-            }}
-          >
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -111,22 +114,13 @@ const Navbar = () => {
             </IconButton>
             <Menu
               id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
               keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
+              anchorEl={anchorElNav}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-                mt: '2px',
-              }}
+              anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+              transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+              sx={{ display: { xs: 'block', md: 'none' }, mt: '2px' }}
             >
               {pages.map(page => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
@@ -154,12 +148,7 @@ const Navbar = () => {
               flexGrow: '1',
             }}
           >
-            <AdsClickIcon
-              sx={{
-                display: { xs: 'flex', md: 'none' },
-                mr: 1,
-              }}
-            />
+            <AdsClickIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
             <Typography
               variant="h5"
               noWrap
@@ -203,24 +192,18 @@ const Navbar = () => {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="User Name" src="/static/images/avatar/2.jpg" />
+                  <Avatar alt={username} src={image} />
                 </IconButton>
               </Tooltip>
               <Menu
-                sx={{ mt: '35px' }}
+                keepMounted
                 id="menu-appbar"
                 anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
+                sx={{ mt: '35px' }}
+                transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+                anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
               >
                 {settings.map(setting =>
                   setting.toLocaleLowerCase() === 'logout' ? (
