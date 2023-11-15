@@ -20,19 +20,23 @@ import RouterLink from './RouterLink';
 import { useAuth } from '../../context/AuthContext';
 
 const Navbar = () => {
-  const { isAuthorized, removeTokens } = useAuth();
+  const { isAuthorized, accessToken, removeTokens } = useAuth();
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const [user, setUser] = useState({ username: null, image: null });
+  const { username, image } = user;
   const pages = isAuthorized
     ? ['Home', 'Leaders', 'Profile']
     : ['Home', 'Leaders'];
   const settings = ['Profile', 'Logout'];
-  const [anchorElNav, setAnchorElNav] = useState(null);
-  const [anchorElUser, setAnchorElUser] = useState(null);
-  const { accessToken } = useAuth();
-  const [user, setUser] = useState({ username: null, image: null });
-  const { username, image } = user;
 
   useEffect(() => {
-    if (!accessToken) return;
+    if (!accessToken) {
+      setAnchorElNav(null);
+      setAnchorElUser(null);
+      return;
+    }
+
     const fetchUser = async () => {
       try {
         const response = await getUser(accessToken);
@@ -65,6 +69,7 @@ const Navbar = () => {
   };
 
   const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
     setAnchorElUser(null);
   };
 
