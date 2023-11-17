@@ -5,35 +5,14 @@ import Loading from '../../UI/Loading';
 import UsersList from './UsersList';
 import { getUserPosition, sortByClicks } from '../../../functions/usersList';
 import { useAuth } from '../../../context/AuthContext';
-import { getUser } from '../../../functions/httpRequests';
+import { useUserData } from '../../../hooks/useUserData';
 import UserInfo from './UserInfo';
-
-const INITIAL_USER = { id: null, username: null, image: null, clicks: 0 };
 
 const LeadersPage = () => {
   const { accessToken } = useAuth();
+  const { user } = useUserData(accessToken);
   const [users, setUsers] = useState([]);
-  const [user, setUser] = useState(INITIAL_USER);
   const { id, username, image, clicks } = user;
-
-  useEffect(() => {
-    if (!accessToken) return;
-    const fetchUser = async () => {
-      try {
-        const response = await getUser(accessToken);
-        const data = await response.json();
-
-        if (!response.ok) {
-          return;
-        }
-
-        setUser(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchUser();
-  }, [accessToken]);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -70,7 +49,7 @@ const LeadersPage = () => {
       >
         {users.length ? (
           <>
-            {accessToken && (
+            {id && (
               <UserInfo
                 avatar={image}
                 username={username}

@@ -1,9 +1,7 @@
-import { useEffect, useState } from 'react';
 import BigButton from './BigButton';
 import Counter from './Counter';
 import { useAuth } from '../../../context/AuthContext';
-import { getUser } from '../../../functions/httpRequests';
-
+import { useUserData } from '../../../hooks/useUserData';
 import { Paper, Stack } from '@mui/material';
 import Display from '../../UI/Display';
 
@@ -15,43 +13,9 @@ const layout = {
   alignItems: 'center',
 };
 
-const INITIAL_USER = {
-  id: null,
-  email: null,
-  username: 'Guest User',
-  image: null,
-  clicks: 0,
-};
-
 const HomePage = () => {
   const { accessToken } = useAuth();
-  const [user, setUser] = useState(INITIAL_USER);
-  const logout = () => {
-    setUser(INITIAL_USER);
-  };
-
-  useEffect(() => {
-    if (!accessToken) {
-      logout();
-      return;
-    }
-
-    const fetchUser = async () => {
-      try {
-        const response = await getUser(accessToken);
-        const data = await response.json();
-
-        if (!response.ok) {
-          return;
-        }
-
-        setUser(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchUser();
-  }, [accessToken]);
+  const { user, setUser } = useUserData(accessToken);
 
   return (
     <Stack sx={layout}>
@@ -69,7 +33,7 @@ const HomePage = () => {
         }}
       >
         <Display
-          value={user.username}
+          value={user.username ?? 'Guest User'}
           sx={{
             color: 'white',
             variant: 'h5',

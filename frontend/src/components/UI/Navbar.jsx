@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react';
-import { getUser } from '../../functions/httpRequests';
-
 import {
   AppBar,
   Box,
@@ -18,13 +16,14 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AdsClickIcon from '@mui/icons-material/AdsClick';
 import RouterLink from './RouterLink';
 import { useAuth } from '../../context/AuthContext';
+import { useUserData } from '../../hooks/useUserData';
 
 const Navbar = () => {
   const { isAuthorized, accessToken, removeTokens } = useAuth();
+  const { user } = useUserData(accessToken);
+  const { username, image } = user;
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const [user, setUser] = useState({ username: null, image: null });
-  const { username, image } = user;
   const pages = isAuthorized
     ? ['Home', 'Leaders', 'Profile']
     : ['Home', 'Leaders'];
@@ -36,22 +35,6 @@ const Navbar = () => {
       setAnchorElUser(null);
       return;
     }
-
-    const fetchUser = async () => {
-      try {
-        const response = await getUser(accessToken);
-        const data = await response.json();
-
-        if (!response.ok) {
-          return;
-        }
-
-        setUser(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchUser();
   }, [accessToken]);
 
   const handleOpenNavMenu = event => {
