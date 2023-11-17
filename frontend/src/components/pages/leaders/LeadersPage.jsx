@@ -5,7 +5,7 @@ import Loading from '../../UI/Loading';
 import UsersList from './UsersList';
 import { getUserPosition, sortByClicks } from '../../../functions/usersList';
 import { useAuth } from '../../../context/AuthContext';
-import { getUser, getUserExtended } from '../../../functions/httpRequests';
+import { getUser } from '../../../functions/httpRequests';
 import UserInfo from './UserInfo';
 
 const INITIAL_USER = { id: null, username: null, image: null, clicks: 0 };
@@ -22,15 +22,12 @@ const LeadersPage = () => {
       try {
         const response = await getUser(accessToken);
         const data = await response.json();
-        const { id } = data;
 
         if (!response.ok) {
           return;
         }
 
-        const extendedResponse = await getUserExtended(id);
-        const extendedData = await extendedResponse.json();
-        setUser(extendedData);
+        setUser(data);
       } catch (error) {
         console.error(error);
       }

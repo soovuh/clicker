@@ -144,14 +144,6 @@ export const getUser = async accessToken => {
   return response;
 };
 
-export const getUserExtended = async id => {
-  const response = await fetch(`${HOST}/api/info/users/${id}/`, {
-    method: 'GET',
-  });
-
-  return response;
-};
-
 export const getUsersList = async () => {
   const response = await fetch(`${HOST}/api/info/users/`, {
     method: 'GET',

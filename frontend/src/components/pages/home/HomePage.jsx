@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import BigButton from './BigButton';
 import Counter from './Counter';
 import { useAuth } from '../../../context/AuthContext';
-import { getUser, getUserExtended } from '../../../functions/httpRequests';
+import { getUser } from '../../../functions/httpRequests';
 
 import { Paper, Stack } from '@mui/material';
 import Display from '../../UI/Display';
@@ -40,15 +40,12 @@ const HomePage = () => {
       try {
         const response = await getUser(accessToken);
         const data = await response.json();
-        const { id } = data;
 
         if (!response.ok) {
           return;
         }
 
-        const extendedResponse = await getUserExtended(id);
-        const extendedData = await extendedResponse.json();
-        setUser(extendedData);
+        setUser(data);
       } catch (error) {
         console.error(error);
       }

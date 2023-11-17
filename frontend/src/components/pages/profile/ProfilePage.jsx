@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../../context/AuthContext';
-import { getUser, getUserExtended } from '../../../functions/httpRequests';
+import { getUser } from '../../../functions/httpRequests';
 import { Stack, Typography } from '@mui/material';
 import Loading from '../../UI/Loading';
 
@@ -22,15 +22,12 @@ const ProfilePage = () => {
       try {
         const response = await getUser(accessToken);
         const data = await response.json();
-        const { id } = data;
 
         if (!response.ok) {
           return;
         }
 
-        const extendedResponse = await getUserExtended(id);
-        const extendedData = await extendedResponse.json();
-        setUser(extendedData);
+        setUser(data);
       } catch (error) {
         console.error(error);
       }

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getUser, getUserExtended } from '../../functions/httpRequests';
+import { getUser } from '../../functions/httpRequests';
 
 import {
   AppBar,
@@ -41,15 +41,12 @@ const Navbar = () => {
       try {
         const response = await getUser(accessToken);
         const data = await response.json();
-        const { id } = data;
 
         if (!response.ok) {
           return;
         }
 
-        const extendedResponse = await getUserExtended(id);
-        const extendedData = await extendedResponse.json();
-        setUser(extendedData);
+        setUser(data);
       } catch (error) {
         console.error(error);
       }
@@ -69,7 +66,6 @@ const Navbar = () => {
   };
 
   const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
     setAnchorElUser(null);
   };
 
